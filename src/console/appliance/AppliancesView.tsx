@@ -1,6 +1,6 @@
 import { Badge, Flex, Select, Table, TextInput, Title } from "@mantine/core";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { colorMapping, riskToWord } from "../../utils/risk.utils";
 export const AppliancesView = () => {
@@ -34,7 +34,7 @@ export const AppliancesView = () => {
     }
     return (
       <tr
-        key={appliance["Asset Type"]}
+        key={appliance["Asset ID"]}
         onClick={() => navigate(`/appliances/${appliance["Asset ID"]}`)}
       >
         <td>{appliance["Asset Type"]}</td>

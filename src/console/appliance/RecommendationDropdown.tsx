@@ -1,4 +1,6 @@
-import { Button, Flex, Loader, Textarea } from "@mantine/core";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Center, Flex, Loader, Textarea } from "@mantine/core";
 import axios from "axios";
 import React from "react";
 
@@ -29,22 +31,25 @@ const RecommendationDropdown = (props: any) => {
   };
 
   return (
-    <Flex direction="column" style={{ height: "20rem" }}>
-      {!loading ? (
-        <Button
-          onClick={getRecommendation}
-          mt={12}
-          style={{ maxWidth: "12rem" }}
-        >
-          Show Recommendation
-        </Button>
-      ) : (
-        <Loader />
-      )}
+    <Flex direction="column" style={{ height: "24rem", width: "100%" }}>
+      <Center>
+        {!loading ? (
+          <Button
+            onClick={getRecommendation}
+            mt={12}
+            style={{ maxWidth: "14rem" }}
+            leftIcon={<FontAwesomeIcon icon={faCaretDown} />}
+          >
+            Show Recommendation
+          </Button>
+        ) : (
+          <Loader />
+        )}
+      </Center>
 
       {showTextarea && (
         <Textarea
-          style={{ marginTop: "20px" }}
+          style={{ marginTop: "20px", marginRight: "1rem" }}
           autosize
           minRows={8}
           maxRows={12}

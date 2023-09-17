@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./console/dashboard/DashboardView";
 import App from "./App";
-import WorkOrdersView from "./views/WorkOrdersView";
 import AppliancesView from "./console/appliance/AppliancesView";
 import LogsView from "./console/logs/LogsView";
 import ReactiveView from "./console/reactive/ReactiveView";
 import ProactiveView from "./console/proactive/ProactiveView";
 import ApplianceView from "./console/appliance/ApplianceView";
+import WorkOrdersView from "./console/work-orders/WorkOrdersView";
 
 export default function AppRouter() {
   return (

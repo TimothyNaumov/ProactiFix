@@ -1,8 +1,7 @@
-import { Badge, Flex, Select, Table, TextInput, Title } from "@mantine/core";
+import { Flex, Select, Table, TextInput, Title } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { colorMapping, riskToWord } from "../../utils/risk.utils";
 
 export const WorkOrdersView = () => {
   const [data, setData] = useState([]);
@@ -12,7 +11,7 @@ export const WorkOrdersView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/appliances");
+        const response = await axios.get("http://localhost:3000/work-orders");
         setData(response.data);
         setLoading(false);
       } catch (error) {
@@ -34,28 +33,22 @@ export const WorkOrdersView = () => {
       return;
     }
     return (
-      <tr
-        key={appliance["Asset Type"]}
-        onClick={() => navigate(`/appliances/${appliance["Asset ID"]}`)}
-      >
+      <tr key={appliance["Asset ID"]}>
+        <td>{appliance["Employee"]}</td>
         <td>{appliance["Asset Type"]}</td>
-        <td>{appliance["Floor"]}</td>
-        <td>{appliance["Room"]}</td>
-        <td>
-          <Badge color={colorMapping[appliance["Risk"]]} size="xl">
-            {riskToWord[appliance["Risk"]]}
-          </Badge>
-        </td>
+        <td>{appliance["Description"]}</td>
+        <td>{appliance["Request Date"]}</td>
       </tr>
     );
   });
 
   return (
     <Flex direction="column" style={{ maxWidth: "48rem" }}>
-      <Title>All Appliances</Title>
+      <Title>Work Orders</Title>
       <Title order={4} mb={36} c="dimmed">
-        View every appliance in the building, click on any appliance to view
-        more information
+        These appliances have been issued work orders and need to be inspected.
+        Each appliance has automatically been assigned the highest priority and
+        placed in the urgent issues
       </Title>
       <Flex justify="space-between" mb={20}>
         <TextInput
@@ -79,10 +72,10 @@ export const WorkOrdersView = () => {
         <thead>
           <tr>
             {/* Assuming your data has these fields. Adjust accordingly */}
+            <th>Employee</th>
             <th>Asset Type</th>
-            <th>Floor</th>
-            <th>Room</th>
-            <th>Risk</th>
+            <th>Description</th>
+            <th>Request Date</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
