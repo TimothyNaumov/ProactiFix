@@ -8,6 +8,8 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { colorMapping, riskToWord } from "../../utils/risk.utils";
 
 // const appliances = [
 //   { name: "Power", lastServiced: "6/20/2023", risk: 3 },
@@ -113,21 +115,14 @@ const appliances = [
   },
 ];
 
-const riskToWord: Record<number, string> = {
-  3: "HIGH",
-  2: "MODERATE",
-  1: "LOW",
-};
-
-const colorMapping: Record<number, string> = {
-  3: "red", // Soft Red
-  2: "orange", // Gentle Orange
-  1: "green", // Muted Green
-};
-
 export const ProactiveView = () => {
+  const navigate = useNavigate();
+
   const rows = appliances.map((appliance) => (
-    <tr key={appliance["Asset Type"]}>
+    <tr
+      key={appliance["Asset Type"]}
+      onClick={() => navigate(`/appliances/${appliance["Asset ID"]}`)}
+    >
       <td>{appliance["Asset Type"]}</td>
       <td>{appliance["Last Serviced Date"]}</td>
       <td>

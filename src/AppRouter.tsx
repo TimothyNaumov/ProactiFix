@@ -2,10 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "./console/dashboard/DashboardView";
 import App from "./App";
 import WorkOrdersView from "./views/WorkOrdersView";
-import AppliancesView from "./views/AppliancesView";
-import LogsView from "./views/LogsView";
+import AppliancesView from "./console/appliance/AppliancesView";
+import LogsView from "./console/logs/LogsView";
 import ReactiveView from "./console/reactive/ReactiveView";
 import ProactiveView from "./console/proactive/ProactiveView";
+import ApplianceView from "./console/appliance/ApplianceView";
 
 export default function AppRouter() {
   return (
@@ -15,6 +16,7 @@ export default function AppRouter() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/work-orders" element={<WorkOrdersView />} />
         <Route path="/appliances" element={<AppliancesView />} />
+        <Route path="/appliances/:id" element={<ApplianceView />} />
         <Route path="/logs" element={<LogsView />} />
         <Route path="/service/reactive" element={<ReactiveView />} />
         <Route path="/service/proactive" element={<ProactiveView />} />

@@ -1,0 +1,58 @@
+{
+  "appliances": {
+    "1": {
+      "Asset ID": 1,
+      "Asset Type": "Elevator",
+      "Floor": 7,
+      "Installation Date": "1/6/2020",
+      "Last Serviced Date": "6/19/2023",
+      "Manufacturer": "Manufacturer_4",
+      "Operational Time (hrs)": 39313,
+      "Repairs": 1,
+      "Risk": 1,
+      "Room": 103,
+      "Work Orders": 0
+    }
+  },
+  "proactive": {
+    "2": {
+      "Asset ID": 2,
+      "Asset Type": "Plumbing System",
+      "Floor": 6,
+      "Installation Date": "6/11/2022",
+      "Last Serviced Date": "1/6/2023",
+      "Manufacturer": "Manufacturer_2",
+      "Operational Time (hrs)": 20012,
+      "Repairs": 1,
+      "Risk": 2,
+      "Room": 109,
+      "Work Orders": 0
+    }
+  },
+  "reactive": {
+    "3": {
+      "Asset ID": 3,
+      "Asset Type": "Fire Alarm",
+      "Floor": 3,
+      "Installation Date": "7/24/2019",
+      "Last Serviced Date": "9/24/2022",
+      "Manufacturer": "Manufacturer_4",
+      "Operational Time (hrs)": 21546,
+      "Repairs": 5,
+      "Risk": 3,
+      "Room": 104,
+      "Work Orders": 10
+    }
+  },
+  "work-orders": {},
+  "logs": {
+    "101": {
+      "Log ID": 101,
+      "Asset ID": 1,
+      "Service Date": "3/12/2021",
+      "Service Type": "Routine Inspection",
+      "Issues Found": "None",
+      "Service Personnel": "Technician_3"
+    }
+  }
+}

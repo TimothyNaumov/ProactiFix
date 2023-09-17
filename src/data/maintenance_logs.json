@@ -1,0 +1,58 @@
+[
+  {
+    "Log ID": 101,
+    "Asset ID": 1,
+    "Service Date": "3/12/2021",
+    "Service Type": "Routine Inspection",
+    "Issues Found": "None",
+    "Service Personnel": "Technician_3"
+  },
+  {
+    "Log ID": 102,
+    "Asset ID": 1,
+    "Service Date": "6/19/2023",
+    "Service Type": "Repair",
+    "Issues Found": "Faulty Button Panel",
+    "Service Personnel": "Technician_7"
+  },
+  {
+    "Log ID": 103,
+    "Asset ID": 2,
+    "Service Date": "1/6/2023",
+    "Service Type": "Repair",
+    "Issues Found": "Pipe Leakage",
+    "Service Personnel": "Technician_4"
+  },
+  {
+    "Log ID": 104,
+    "Asset ID": 3,
+    "Service Date": "9/24/2022",
+    "Service Type": "Urgent Repair",
+    "Issues Found": "Alarm Not Sounding",
+    "Service Personnel": "Technician_1"
+  },
+  {
+    "Log ID": 105,
+    "Asset ID": 3,
+    "Service Date": "3/14/2021",
+    "Service Type": "Routine Inspection",
+    "Issues Found": "Sensor Misalignment",
+    "Service Personnel": "Technician_5"
+  },
+  {
+    "Log ID": 106,
+    "Asset ID": 4,
+    "Service Date": "5/23/2023",
+    "Service Type": "Routine Inspection",
+    "Issues Found": "Minor Wear and Tear",
+    "Service Personnel": "Technician_7"
+  },
+  {
+    "Log ID": 107,
+    "Asset ID": 4,
+    "Service Date": "2/7/2022",
+    "Service Type": "Routine Inspection",
+    "Issues Found": "None",
+    "Service Personnel": "Technician_2"
+  }
+]
