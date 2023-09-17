@@ -27,7 +27,8 @@ export const AppliancesView = () => {
     return <p>Loading...</p>;
   }
 
-  const rows = data.map((appliance) => {
+  const rows = Object.keys(data).map((app) => {
+    const appliance = data[app];
     if (appliance === null) {
       return;
     }

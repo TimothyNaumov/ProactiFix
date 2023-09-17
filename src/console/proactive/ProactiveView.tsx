@@ -10,128 +10,56 @@ import {
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { colorMapping, riskToWord } from "../../utils/risk.utils";
-
-// const appliances = [
-//   { name: "Power", lastServiced: "6/20/2023", risk: 3 },
-//   { name: "Fire Alarm", lastServiced: "6/22/2023", risk: 3 },
-//   { name: "HVAC", lastServiced: "6/14/2023", risk: 2 },
-//   { name: "HVAC", lastServiced: "6/15/2023", risk: 2 },
-//   { name: "HVAC", lastServiced: "6/19/2023", risk: 2 },
-//   { name: "Elevator", lastServiced: "6/21/2023", risk: 1 },
-//   { name: "Elevator", lastServiced: "6/23/2023", risk: 1 },
-// ];
-
-const appliances = [
-  {
-    "Asset ID": 7,
-    "Asset Type": "Fire Alarm",
-    Floor: 6,
-    Room: 108,
-    "Installation Date": "8/23/2020",
-    Manufacturer: "Manufacturer_2",
-    "Operational Time (hrs)": 15650,
-    "Work Orders": 2,
-    Repairs: 3,
-    "Last Serviced Date": "1/13/2023",
-    risk: 3,
-  },
-  {
-    "Asset ID": 3,
-    "Asset Type": "Fire Alarm",
-    Floor: 3,
-    Room: 104,
-    "Installation Date": "7/24/2019",
-    Manufacturer: "Manufacturer_4",
-    "Operational Time (hrs)": 21546,
-    "Work Orders": 10,
-    Repairs: 5,
-    "Last Serviced Date": "9/24/2022",
-    risk: 3,
-  },
-  {
-    "Asset ID": 6,
-    "Asset Type": "Fire Alarm",
-    Floor: 2,
-    Room: 103,
-    "Installation Date": "7/29/2021",
-    Manufacturer: "Manufacturer_3",
-    "Operational Time (hrs)": 1602,
-    "Work Orders": 9,
-    Repairs: 4,
-    "Last Serviced Date": "10/3/2022",
-    risk: 3,
-  },
-  {
-    "Asset ID": 2,
-    "Asset Type": "Plumbing System",
-    Floor: 6,
-    Room: 109,
-    "Installation Date": "6/11/2022",
-    Manufacturer: "Manufacturer_2",
-    "Operational Time (hrs)": 20012,
-    "Work Orders": 0,
-    Repairs: 1,
-    "Last Serviced Date": "1/6/2023",
-    risk: 2,
-  },
-  {
-    "Asset ID": 5,
-    "Asset Type": "Plumbing System",
-    Floor: 2,
-    Room: 104,
-    "Installation Date": "11/28/2022",
-    Manufacturer: "Manufacturer_1",
-    "Operational Time (hrs)": 20022,
-    "Work Orders": 10,
-    Repairs: 3,
-    "Last Serviced Date": "1/29/2023",
-    risk: 2,
-  },
-  {
-    "Asset ID": 1,
-    "Asset Type": "Elevator",
-    Floor: 7,
-    Room: 103,
-    "Installation Date": "1/6/2020",
-    Manufacturer: "Manufacturer_4",
-    "Operational Time (hrs)": 39313,
-    "Work Orders": 0,
-    Repairs: 1,
-    "Last Serviced Date": "6/19/2023",
-    risk: 1,
-  },
-  {
-    "Asset ID": 4,
-    "Asset Type": "Elevator",
-    Floor: 1,
-    Room: 105,
-    "Installation Date": "1/4/2021",
-    Manufacturer: "Manufacturer_4",
-    "Operational Time (hrs)": 47038,
-    "Work Orders": 1,
-    Repairs: 1,
-    "Last Serviced Date": "5/23/2023",
-    risk: 1,
-  },
-];
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 export const ProactiveView = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const rows = appliances.map((appliance) => (
-    <tr
-      key={appliance["Asset Type"]}
-      onClick={() => navigate(`/appliances/${appliance["Asset ID"]}`)}
-    >
-      <td>{appliance["Asset Type"]}</td>
-      <td>{appliance["Last Serviced Date"]}</td>
-      <td>
-        <Badge color={colorMapping[appliance["risk"]]} size="xl">
-          {riskToWord[appliance["risk"]]}
-        </Badge>
-      </td>
-    </tr>
-  ));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/service/proactive"
+        );
+        setData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  const rows = Object.keys(data).map((app, index) => {
+    const appliance = data[app];
+    console.log(appliance);
+    if (appliance === null) {
+      return null;
+    }
+    return (
+      <tr
+        key={appliance["Asset ID"]}
+        onClick={() => navigate(`/appliances/${appliance["Asset ID"]}`)}
+      >
+        <td>{appliance["Asset Type"]}</td>
+        <td>{appliance["Last Serviced Date"]}</td>
+        <td>
+          <Badge color={colorMapping[appliance["Risk"]]} size="xl">
+            {riskToWord[appliance["Risk"]]}
+          </Badge>
+        </td>
+      </tr>
+    );
+  });
 
   const items = [
     { title: "Dashboard", href: "/dashboard" },

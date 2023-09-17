@@ -1,35 +1,18 @@
-import {
-  Anchor,
-  Badge,
-  Breadcrumbs,
-  Flex,
-  Select,
-  Table,
-  TextInput,
-  Title,
-} from "@mantine/core";
-import { useNavigate } from "react-router-dom";
-import { colorMapping, riskToWord } from "../../utils/risk.utils";
-import axios from "axios";
+import { Badge, Flex, Select, Table, TextInput, Title } from "@mantine/core";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { colorMapping, riskToWord } from "../../utils/risk.utils";
 
-// const appliances = [
-//   { name: "Power", lastServiced: "6/20/2023", risk: 3 },
-//   { name: "Fire Alarm", lastServiced: "6/22/2023", risk: 3 },
-//   { name: "HVAC", lastServiced: "6/14/2023", risk: 3 },
-// ];
-
-export const ReactiveView = () => {
-  const navigate = useNavigate();
+export const WorkOrdersView = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/service/reactive"
-        );
+        const response = await axios.get("http://localhost:3000/appliances");
         setData(response.data);
         setLoading(false);
       } catch (error) {
@@ -45,20 +28,19 @@ export const ReactiveView = () => {
     return <p>Loading...</p>;
   }
 
-  const rows = Object.keys(data).map((app, index) => {
+  const rows = Object.keys(data).map((app) => {
     const appliance = data[app];
-    console.log(appliance);
-    console.log(appliance["Asset ID"]);
     if (appliance === null) {
-      return null;
+      return;
     }
     return (
       <tr
-        key={appliance["Asset ID"]}
+        key={appliance["Asset Type"]}
         onClick={() => navigate(`/appliances/${appliance["Asset ID"]}`)}
       >
         <td>{appliance["Asset Type"]}</td>
-        <td>{appliance["Last Serviced Date"]}</td>
+        <td>{appliance["Floor"]}</td>
+        <td>{appliance["Room"]}</td>
         <td>
           <Badge color={colorMapping[appliance["Risk"]]} size="xl">
             {riskToWord[appliance["Risk"]]}
@@ -68,22 +50,12 @@ export const ReactiveView = () => {
     );
   });
 
-  const items = [
-    { title: "Dashboard", href: "/dashboard" },
-    { title: "Urgent Maintenence", href: "/service/proactive" },
-  ].map((item, index) => (
-    <Anchor href={item.href} key={index}>
-      {item.title}
-    </Anchor>
-  ));
-
   return (
     <Flex direction="column" style={{ maxWidth: "48rem" }}>
-      <Breadcrumbs mb={10}>{items}</Breadcrumbs>
-      <Title>Urgent Maintenance</Title>
+      <Title>All Appliances</Title>
       <Title order={4} mb={36} c="dimmed">
-        These appliances are in urgent need of attention and must be fixed
-        immediately!
+        View every appliance in the building, click on any appliance to view
+        more information
       </Title>
       <Flex justify="space-between" mb={20}>
         <TextInput
@@ -106,8 +78,10 @@ export const ReactiveView = () => {
       >
         <thead>
           <tr>
-            <th>Appliance Name</th>
-            <th>Last Serviced Date</th>
+            {/* Assuming your data has these fields. Adjust accordingly */}
+            <th>Asset Type</th>
+            <th>Floor</th>
+            <th>Room</th>
             <th>Risk</th>
           </tr>
         </thead>
@@ -117,4 +91,4 @@ export const ReactiveView = () => {
   );
 };
 
-export default ReactiveView;
+export default WorkOrdersView;

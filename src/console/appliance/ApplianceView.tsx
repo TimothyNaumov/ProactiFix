@@ -1,8 +1,17 @@
-import { Badge, Flex, Select, Table, TextInput, Title } from "@mantine/core";
+import {
+  Badge,
+  Divider,
+  Flex,
+  Select,
+  Table,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { colorMapping, riskToWord } from "../../utils/risk.utils";
+import RecommendationDropdown from "./RecommendationDropdown";
 
 export const ApplianceView = () => {
   const [data, setData] = useState([]);
@@ -48,14 +57,33 @@ export const ApplianceView = () => {
   // }
 
   return (
-    <Flex direction="column" style={{ maxWidth: "48rem" }}>
-      <Title style={{ fontSize: "72px" }} mb={20}>
-        {data["Asset Type"]}
-      </Title>
-      <Title order={2}>Floor: {data["Floor"]}</Title>
-      <Title order={2}>Room: {data["Room"]}</Title>
-      <Title order={2}>Installed on: {data["Installation Date"]}</Title>
-      <Title order={2}>Last services on: {data["Last Serviced Date"]}</Title>
+    <Flex direction="column">
+      <Flex direction="column" style={{ maxWidth: "24rem" }} gap={5}>
+        <Title style={{ fontSize: "72px", marginRight: "1rem" }}>
+          {data["Asset Type"]}
+        </Title>
+        <Badge
+          color={colorMapping[data["Risk"]]}
+          size="xl"
+          style={{ maxWidth: "8rem" }}
+        >
+          {riskToWord[data["Risk"]]}
+        </Badge>
+        <Divider />
+        <Title order={2}>Floor: {data["Floor"]}</Title>
+        <Title order={2}>Room: {data["Room"]}</Title>
+        <Divider />
+        <Title order={2}>Installed on: {data["Installation Date"]}</Title>
+        <Title order={2}>Manufacturer: {data["Manufacturer"]}</Title>
+        <Title order={2}>Last serviced on: {data["Last Serviced Date"]}</Title>
+        <Divider />
+        <Title order={2}>
+          Operational time (hrs): {data["Operational Time (hrs)"]}
+        </Title>
+        <Title order={2}>Repairs: {data["Repairs"]}</Title>
+        <Title order={2}>Work Orders: {data["Work Orders"]}</Title>
+      </Flex>
+      <RecommendationDropdown appliance={data} />
     </Flex>
   );
 };
