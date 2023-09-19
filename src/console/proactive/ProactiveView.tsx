@@ -22,7 +22,7 @@ export const ProactiveView = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/service/proactive"
+          `${import.meta.env.VITE_API_PREFIX}/service/proactive`
         );
         setData(response.data);
         setLoading(false);
@@ -39,7 +39,7 @@ export const ProactiveView = () => {
     return <p>Loading...</p>;
   }
 
-  const rows = Object.keys(data).map((app, index) => {
+  const rows = Object.keys(data).map((app) => {
     const appliance = data[app];
     console.log(appliance);
     if (appliance === null) {

@@ -1,14 +1,6 @@
-import {
-  Badge,
-  Divider,
-  Flex,
-  Select,
-  Table,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Badge, Divider, Flex, Title, Text } from "@mantine/core";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { colorMapping, riskToWord } from "../../utils/risk.utils";
 import RecommendationDropdown from "./RecommendationDropdown";
@@ -40,7 +32,6 @@ const ApplianceTypeMapping = {
 export const ApplianceView = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -48,7 +39,7 @@ export const ApplianceView = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/appliances/${id}`
+          `${import.meta.env.VITE_API_PREFIX}/appliances/${id}`
         );
         setData(response.data);
         setLoading(false);
@@ -59,7 +50,7 @@ export const ApplianceView = () => {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -97,7 +88,13 @@ export const ApplianceView = () => {
             <Title order={2}>Work Orders: {data["Work Orders"]}</Title>
           </Flex>
         </Flex>
-        <Scene viewSettings={ApplianceTypeMapping[data["Asset Type"]]} />
+        <Flex direction="column">
+          <Text c="dimmed">
+            Scroll to zoom in/out | left click drag to rotate | right click drag
+            to pan
+          </Text>
+          <Scene viewSettings={ApplianceTypeMapping[data["Asset Type"]]} />
+        </Flex>
       </Flex>
       <RecommendationDropdown appliance={data} />
     </Flex>

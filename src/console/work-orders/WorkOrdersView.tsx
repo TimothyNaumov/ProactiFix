@@ -1,17 +1,17 @@
 import { Flex, Select, Table, TextInput, Title } from "@mantine/core";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const WorkOrdersView = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/work-orders");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_PREFIX}/work-orders`
+        );
         setData(response.data);
         setLoading(false);
       } catch (error) {

@@ -11,7 +11,9 @@ export const AppliancesView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/appliances");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_PREFIX}/appliances`
+        );
         setData(response.data);
         setLoading(false);
       } catch (error) {

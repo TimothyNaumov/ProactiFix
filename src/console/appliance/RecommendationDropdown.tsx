@@ -4,6 +4,7 @@ import { Button, Center, Flex, Loader, Textarea } from "@mantine/core";
 import axios from "axios";
 import React from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RecommendationDropdown = (props: any) => {
   const [rec, setRec] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -13,7 +14,7 @@ const RecommendationDropdown = (props: any) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:3000/recommended-action`,
+        `${import.meta.env.VITE_API_PREFIX}/recommended-action`,
         { appliance: props.appliance }, // Adding appliance data to the body
         {
           headers: {
